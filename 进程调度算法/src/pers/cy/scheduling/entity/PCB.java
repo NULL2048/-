@@ -1,3 +1,5 @@
+package pers.cy.scheduling.entity;
+
 public class PCB implements Constant {
     // 进程名
     private String processName;
