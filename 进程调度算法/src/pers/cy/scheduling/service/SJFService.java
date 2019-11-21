@@ -1,26 +1,22 @@
 package pers.cy.scheduling.service;
 
-import pers.cy.scheduling.util.Constant;
 import pers.cy.scheduling.entity.PCB;
 import pers.cy.scheduling.entity.Process;
 import pers.cy.scheduling.factory.Factory;
+import pers.cy.scheduling.util.Constant;
 import pers.cy.scheduling.util.DeepCopyBySerialization;
 
-import java.io.*;
-import java.util.*;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
-public class FCFSService implements Constant{
+public class SJFService implements Constant {
     private IOService ioService = Factory.getIOServiceInstance();
 
-    /**
-     * 先来先服务的进程只要是执行起来就一直执行到结束，中途不被其他的进程打断
-     * @param processList
-     * @throws IOException
-     * @throws ClassNotFoundException
-     * @throws InterruptedException
-     */
-    public void FCFS(List<Process> processList) throws IOException, ClassNotFoundException, InterruptedException {
-        System.out.println("先来先服务算法");
+    public void SJF(List<Process> processList) throws IOException, ClassNotFoundException, InterruptedException {
+        System.out.println("短作业优先算法");
         System.out.println();
 
         // 输出作业情况
@@ -59,15 +55,29 @@ public class FCFSService implements Constant{
                 }
             }
 
-            // 当就绪队列中不为空的时候，运行队首进程
+            // 当就绪队列中不为空的时候,取出要执行的进程来执行
             if (readyList.size() != 0) {
-                runProcessPCB = readyList.element().getPcb();
-                // 下面这个用来将第一个到就绪队列的进程开始执行
-                if (runProcessPCB.getStatus() == STATUS_WAIT) {
+                // 当前需要执行的进程对象为空，说明需要从就绪队列中找到服务时间最小的进程拿出来执行
+                if (runProcessPCB == null) {
+                    double minServiceTime = Double.MAX_VALUE;
+                    int minIndex = -1;
+                    // 遍历查找服务时间最小的进程
+                    for (int i = 0; i < readyList.size(); i++) {
+                        PCB tempPCB = readyList.get(i).getPcb();
+                        if (tempPCB.getServiceTime() < minServiceTime) {
+                            minServiceTime = tempPCB.getServiceTime();
+                            runProcessPCB = tempPCB;
+                            minIndex = i;
+                        }
+                    }
+                    // 从就绪队列中取出要执行的进程
+                    readyList.remove(minIndex);
+
                     runProcessPCB.setStatus(STATUS_RUN);
                     System.out.println(t + "\t" + "进程" + runProcessPCB.getProcessName() + "开始执行\n");
                     Thread.sleep(1000);
                 }
+
                 // 执行进程
                 runProcessPCB.run();
 

@@ -1,6 +1,10 @@
 package pers.cy.scheduling.entity;
 
-public class PCB implements Constant {
+import pers.cy.scheduling.util.Constant;
+
+import java.io.Serializable;
+
+public class PCB implements Constant, Serializable {
     // 进程名
     private String processName;
     // 优先级
@@ -58,5 +62,9 @@ public class PCB implements Constant {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public void run() {
+        this.serviceTime--;
     }
 }

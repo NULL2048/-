@@ -1,6 +1,8 @@
 package pers.cy.scheduling.entity;
 
-public class Process {
+import java.io.Serializable;
+
+public class Process implements Comparable<Process>, Serializable {
     // 进程控制块
     private PCB pcb;
     // 程序段
@@ -36,5 +38,21 @@ public class Process {
 
     public void setDataSegment(String dataSegment) {
         this.dataSegment = dataSegment;
+    }
+
+    /**
+     * 根据到达时间进行升序排序
+     * @param o
+     * @return
+     */
+    @Override
+    public int compareTo(Process o) {
+        if (this.pcb.getArrivalTime() > o.pcb.getArrivalTime()) {
+            return 1;
+        } else if (this.pcb.getArrivalTime() < o.pcb.getArrivalTime()) {
+            return -1;
+        } else {
+            return 0;
+        }
     }
 }
