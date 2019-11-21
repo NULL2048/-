@@ -20,7 +20,7 @@ public class FCFSService implements Constant{
      * @throws InterruptedException
      */
     public void FCFS(List<Process> processList) throws IOException, ClassNotFoundException, InterruptedException {
-        System.out.println("先来先服务算法");
+        System.out.println("先来先服务调度算法");
         System.out.println();
 
         // 输出作业情况

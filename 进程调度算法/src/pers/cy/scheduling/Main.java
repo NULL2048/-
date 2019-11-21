@@ -1,5 +1,6 @@
 package pers.cy.scheduling;
 
+import pers.cy.scheduling.service.SJFService;
 import pers.cy.scheduling.util.Constant;
 import pers.cy.scheduling.entity.PCB;
 import pers.cy.scheduling.entity.Process;
@@ -16,6 +17,8 @@ public class Main implements Constant {
     private static IOService ioService = Factory.getIOServiceInstance();
 
     private static FCFSService fcfsService = Factory.getFCFSServiceInstance();
+
+    private static SJFService sjfService = Factory.getSJFServiceInstance();
 
     public static void main(String[] args) throws IOException, ClassNotFoundException, InterruptedException {
         Scanner scan = new Scanner(System.in);
@@ -47,8 +50,14 @@ public class Main implements Constant {
                 case 3:
                     fcfsService.FCFS(processList);
                     break;
+                case 4:
+                    sjfService.SJF(processList);
+                    break;
                 case 0:
                     System.exit(0);
+                default:
+                    System.out.println("输入有误,请重新输入");
+                    break;
             }
         }
     }
