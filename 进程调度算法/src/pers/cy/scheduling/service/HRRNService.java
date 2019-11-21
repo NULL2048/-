@@ -12,18 +12,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-public class SJFService implements Constant {
+public class HRRNService implements Constant {
     private IOService ioService = Factory.getIOServiceInstance();
 
-    /**
-     * 短作业优先的进程只要是执行起来就一直执行到结束，中途不被其他的进程打断
-     * @param processList
-     * @throws IOException
-     * @throws ClassNotFoundException
-     * @throws InterruptedException
-     */
-    public void SJF(List<Process> processList) throws IOException, ClassNotFoundException, InterruptedException {
-        System.out.println("短作业优先调度算法");
+    public void HRRN(List<Process> processList) throws IOException, ClassNotFoundException, InterruptedException {
+        System.out.println("高响应比优先调度算法");
         System.out.println();
 
         // 输出作业情况
@@ -65,9 +58,9 @@ public class SJFService implements Constant {
 
             // 当就绪队列中不为空的时候,取出要执行的进程来执行
             if (readyList.size() != 0 || runProcessPCB != null) {
-                // 当前需要执行的进程对象为空，说明需要从就绪队列中找到服务时间最小的进程拿出来执行
+                // 当前需要执行的进程对象为空，说明需要从就绪队列中找到优先级最大的进程拿出来执行
                 if (runProcessPCB == null) {
-                    runProcessPCB = getMinServiceTimeProcess(readyList, t);
+                    runProcessPCB = getMaxPriorityProcess(readyList, t);
                 }
 
                 // 执行进程
@@ -89,44 +82,48 @@ public class SJFService implements Constant {
                     runProcessPCB = null;
 
                     if (readyList.size() != 0) {
-                        runProcessPCB = getMinServiceTimeProcess(readyList, t);
+                        runProcessPCB = getMaxPriorityProcess(readyList, t);
 
                         // 执行进程
                         runProcessPCB.run();
                     }
                 }
             }
-
             t++;
         }
-
         // 输出作业完成情况
         ioService.outputJobCompletion(processList, completeTimeMap);
     }
 
     /**
-     * 取得就绪队列中服务时间最短的进程
+     * 在就绪队列中获取优先级最大的进程
      * @param readyList 就绪队列
      * @param t 当前时间
-     * @return 服务时间最短的进程
+     * @return 优先级最大的进程
      * @throws InterruptedException
      */
-    public PCB getMinServiceTimeProcess(List<Process> readyList, int t) throws InterruptedException {
+    private PCB getMaxPriorityProcess(LinkedList<Process> readyList, int t) throws InterruptedException {
         PCB runProcessPCB = null;
 
-        double minServiceTime = Double.MAX_VALUE;
-        int minIndex = -1;
+        double maxPriority = -Double.MAX_VALUE;
+        int maxIndex = -1;
         // 遍历查找服务时间最小的进程
         for (int i = 0; i < readyList.size(); i++) {
             PCB tempPCB = readyList.get(i).getPcb();
-            if (tempPCB.getServiceTime() < minServiceTime) {
-                minServiceTime = tempPCB.getServiceTime();
+
+            // 计算当前进程的优先级
+            double priority = (t - tempPCB.getArrivalTime() + tempPCB.getServiceTime()) / tempPCB.getServiceTime();
+            tempPCB.setPriority(priority);
+
+            if (tempPCB.getPriority() > maxPriority) {
+                maxPriority = tempPCB.getPriority();
                 runProcessPCB = tempPCB;
-                minIndex = i;
+                maxIndex = i;
             }
         }
+
         // 从就绪队列中取出要执行的进程
-        readyList.remove(minIndex);
+        readyList.remove(maxIndex);
 
         runProcessPCB.setStatus(STATUS_RUN);
         System.out.println(t + "\t" + "进程" + runProcessPCB.getProcessName() + "开始执行\n");

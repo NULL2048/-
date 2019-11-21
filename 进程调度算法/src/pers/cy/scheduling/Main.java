@@ -1,5 +1,6 @@
 package pers.cy.scheduling;
 
+import pers.cy.scheduling.service.HRRNService;
 import pers.cy.scheduling.service.SJFService;
 import pers.cy.scheduling.util.Constant;
 import pers.cy.scheduling.entity.PCB;
@@ -19,6 +20,8 @@ public class Main implements Constant {
     private static FCFSService fcfsService = Factory.getFCFSServiceInstance();
 
     private static SJFService sjfService = Factory.getSJFServiceInstance();
+
+    private static HRRNService hrrnService = Factory.getHRRNServiceInstance();
 
     public static void main(String[] args) throws IOException, ClassNotFoundException, InterruptedException {
         Scanner scan = new Scanner(System.in);
@@ -53,6 +56,9 @@ public class Main implements Constant {
                 case 4:
                     sjfService.SJF(processList);
                     break;
+                case 5:
+                    hrrnService.HRRN(processList);
+                    break;
                 case 0:
                     System.exit(0);
                 default:
@@ -76,7 +82,7 @@ public class Main implements Constant {
 
             double serviceTime = a3[i];
 
-            PCB pcb = new PCB(processName, -1, arrivalTime, serviceTime, STATUS_OUT);
+            PCB pcb = new PCB(processName, -1.0, arrivalTime, serviceTime, STATUS_OUT);
 
             Process process = new Process(pcb, processName + "的程序段", processName + "的数据段");
 

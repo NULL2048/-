@@ -30,7 +30,7 @@ public class IOService implements Constant {
             System.out.print("服务时间");
             double serviceTime = scan.nextDouble();
 
-            PCB pcb = new PCB(processName, -1, arrivalTime, serviceTime, STATUS_OUT);
+            PCB pcb = new PCB(processName, -1.0, arrivalTime, serviceTime, STATUS_OUT);
 
             Process process = new Process(pcb, processName + "的程序段", processName + "的数据段");
 
