@@ -20,7 +20,7 @@ public class FCFSService implements Constant{
      * @throws InterruptedException
      */
     public void FCFS(List<Process> processList) throws IOException, ClassNotFoundException, InterruptedException {
-        System.out.println("先来先服务调度算法");
+        System.out.println("\n先来先服务调度算法");
         System.out.println();
 
         // 输出作业情况
@@ -39,7 +39,7 @@ public class FCFSService implements Constant{
         int processCount = processList.size();
         // 记录进程的完成时间
         Map<String, Integer> completeTimeMap = new HashMap<>();
-        // 记录当前事件
+        // 记录当前时间
         int t = 0;
 
         // 当前正在运行的进程
@@ -66,7 +66,7 @@ public class FCFSService implements Constant{
                 if (runProcessPCB.getStatus() == STATUS_WAIT) {
                     runProcessPCB.setStatus(STATUS_RUN);
                     System.out.println(t + "\t" + "进程" + runProcessPCB.getProcessName() + "开始执行\n");
-                    Thread.sleep(1000);
+                    Thread.sleep(BLOCK_TIME);
                 }
                 // 执行进程
                 runProcessPCB.run();
@@ -81,14 +81,14 @@ public class FCFSService implements Constant{
                     completeCount++;
 
                     System.out.println(t + "\t" + "进程" + runProcessPCB.getProcessName() + "结束\n");
-                    Thread.sleep(1000);
+                    Thread.sleep(BLOCK_TIME);
 
                     if (readyList.size() != 0) {
                         runProcessPCB = readyList.element().getPcb();
                         runProcessPCB.setStatus(STATUS_RUN);
                         runProcessPCB.run();
                         System.out.println(t + "\t" + "进程" + runProcessPCB.getProcessName() + "开始执行\n");
-                        Thread.sleep(1000);
+                        Thread.sleep(BLOCK_TIME);
                     }
 
                 }

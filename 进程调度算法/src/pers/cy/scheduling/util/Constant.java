@@ -11,4 +11,6 @@ public interface Constant {
     int STATUS_RUN = 1;
     // 完成状态
     int STATUS_FINISH = 2;
+    // 阻塞时间
+    int BLOCK_TIME = 1;
 }

@@ -16,7 +16,7 @@ public class HRRNService implements Constant {
     private IOService ioService = Factory.getIOServiceInstance();
 
     public void HRRN(List<Process> processList) throws IOException, ClassNotFoundException, InterruptedException {
-        System.out.println("高响应比优先调度算法");
+        System.out.println("\n高响应比优先调度算法");
         System.out.println();
 
         // 输出作业情况
@@ -35,7 +35,7 @@ public class HRRNService implements Constant {
         int processCount = processList.size();
         // 记录进程的完成时间
         Map<String, Integer> completeTimeMap = new HashMap<>();
-        // 记录当前事件
+        // 记录当前时间
         int t = 0;
 
         // 当前正在运行的进程
@@ -51,7 +51,7 @@ public class HRRNService implements Constant {
                         readyList.addLast(tempList.get(i));
                         tempProcessPCB.setStatus(STATUS_WAIT);
                         System.out.println(t + "\t" + "进程" + tempProcessPCB.getProcessName() + "到达内存\n");
-                        Thread.sleep(1000);
+                        Thread.sleep(BLOCK_TIME);
                     }
                 }
             }
@@ -76,7 +76,7 @@ public class HRRNService implements Constant {
                     completeCount++;
 
                     System.out.println(t + "\t" + "进程" + runProcessPCB.getProcessName() + "结束\n");
-                    Thread.sleep(1000);
+                    Thread.sleep(BLOCK_TIME);
 
                     // 将正在执行的进程对象置为null
                     runProcessPCB = null;
@@ -127,7 +127,7 @@ public class HRRNService implements Constant {
 
         runProcessPCB.setStatus(STATUS_RUN);
         System.out.println(t + "\t" + "进程" + runProcessPCB.getProcessName() + "开始执行\n");
-        Thread.sleep(1000);
+        Thread.sleep(BLOCK_TIME);
 
         return runProcessPCB;
     }

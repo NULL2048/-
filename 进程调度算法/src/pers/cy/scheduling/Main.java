@@ -1,13 +1,10 @@
 package pers.cy.scheduling;
 
-import pers.cy.scheduling.service.HRRNService;
-import pers.cy.scheduling.service.SJFService;
+import pers.cy.scheduling.service.*;
 import pers.cy.scheduling.util.Constant;
 import pers.cy.scheduling.entity.PCB;
 import pers.cy.scheduling.entity.Process;
 import pers.cy.scheduling.factory.Factory;
-import pers.cy.scheduling.service.FCFSService;
-import pers.cy.scheduling.service.IOService;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -22,6 +19,10 @@ public class Main implements Constant {
     private static SJFService sjfService = Factory.getSJFServiceInstance();
 
     private static HRRNService hrrnService = Factory.getHRRNServiceInstance();
+
+    private static RRService rrService = Factory.getRRServiceInstance();
+
+    private static MFQService mfqService = Factory.getMFQServiceInstance();
 
     public static void main(String[] args) throws IOException, ClassNotFoundException, InterruptedException {
         Scanner scan = new Scanner(System.in);
@@ -40,7 +41,7 @@ public class Main implements Constant {
             System.out.println("8. 算法结果对比\n");
             System.out.println("0. 退出\n");
 
-            System.out.println("\n请输入选择");
+            System.out.print("\n请输入选择：");
             int select = scan.nextInt();
 
             switch (select) {
@@ -58,6 +59,12 @@ public class Main implements Constant {
                     break;
                 case 5:
                     hrrnService.HRRN(processList);
+                    break;
+                case 6:
+                    rrService.RR(processList);
+                    break;
+                case 7:
+                    mfqService.MFQ(processList);
                     break;
                 case 0:
                     System.exit(0);
