@@ -1,10 +1,10 @@
-package pers.cy.scheduling.util;
+package pers.cy.banker.util;
 
 public interface Constant {
-    // 要进行作业的进程数
+    // 要进行资源请求的进程数
     int PROCESS_COUNT = 5;
-    // 未进入内存状态
-    int STATUS_OUT = -1;
+    // 计算机资源种类数
+    int RESOURCE_COUNT = 3;
     // 就绪状态
     int STATUS_WAIT = 0;
     // 运行状态

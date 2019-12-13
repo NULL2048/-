@@ -64,6 +64,8 @@ public class MFQService implements Constant {
             // 用来标记当前多级队列中，不为空的最上面的一级队列的下标
             int i = 0;
             while (true) {
+                // 标记当前有没有新的进程进入到一级队列
+                // boolean flag = false;
                 // 找到当前最上层的不为空的反馈队列，每一次都要从最上层的队列向下找，找到第一个不为空的队列
                 for (i = 0; i < feedbackQueueLists.size(); i++) {
                     if (feedbackQueueLists.get(i).getReadyList().size() != 0) {
@@ -97,8 +99,14 @@ public class MFQService implements Constant {
                             // 这里又碰到了最开始学习算法时候容易出现的错误，就是相同类型对变量的修改操作一定要紧挨在一起
                             // 比如这个时间增加操作，因为上面是run()执行操作，执行之后伴随着必然要时间向前推移，所以一定要将这个t++紧挨着run()操作，如果在他俩之间插入别的相关操作就会出现问题
                             t++;
-                            // 将到达内存的进程放入就绪队列
-                            arriveMemoryListener(tempList, feedbackQueueLists, processCount, t);
+                            // 将到达内存的进程放入就绪队列  如果有新的进程进入到了1级队列，就直接结束当前队列的执行，将其放到i级队列队尾，跳出从1级队列开始执行
+                            if (arriveMemoryListener(tempList, feedbackQueueLists, processCount, t)) {
+//                                runProcess.getPcb().setStatus(STATUS_WAIT);
+//                                feedbackQueueLists.get(i).getReadyList().addLast(runProcess);
+//                                flag = true;
+//                                Thread.sleep(BLOCK_TIME);
+//                                break;
+                            }
 
                             // 执行完的进程只有两种情况  要么执行完了，要么没执行完
                             // 当该进程在自己的时间片内执行完成，就抢该进程从就绪队列删除，收回本次时间片，创建一个新的时间片给新的队首进程
@@ -136,6 +144,10 @@ public class MFQService implements Constant {
                             outputMultilevedFeedbackQueue(feedbackQueueLists);
                             Thread.sleep(BLOCK_TIME);
                         }
+
+//                        if (flag == true) {
+//                            break;
+//                        }
                     }
                 } else {
                     // 如果全都是空队列，就暂时跳出执行模块
@@ -174,7 +186,8 @@ public class MFQService implements Constant {
      * @param t 当前时间
      * @throws InterruptedException
      */
-    public void arriveMemoryListener(List<Process> tempList, List<FeedbackQueue> feedbackQueueLists, int processCount, int t) throws InterruptedException {
+    public boolean arriveMemoryListener(List<Process> tempList, List<FeedbackQueue> feedbackQueueLists, int processCount, int t) throws InterruptedException {
+        boolean flag = false;
         // 遍历所有要作业的进程，当到了该进程的到达时间时将该进程放入就绪队列
         for (int i = 0; i < processCount; i++) {
             PCB tempProcessPCB = tempList.get(i).getPcb();
@@ -185,9 +198,11 @@ public class MFQService implements Constant {
                     tempProcessPCB.setStatus(STATUS_WAIT);
                     System.out.println(t + "\t" + "进程" + tempProcessPCB.getProcessName() + "到达内存");
                     outputMultilevedFeedbackQueue(feedbackQueueLists);
+                    flag = true;
                     Thread.sleep(BLOCK_TIME);
                 }
             }
         }
+        return flag;
     }
 }

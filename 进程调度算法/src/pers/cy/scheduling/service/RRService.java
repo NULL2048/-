@@ -69,7 +69,7 @@ public class RRService implements Constant {
                     arriveMemoryListener(tempList, readyList, processCount, t);
 
                     // 执行完的进程只有两种情况  要么执行完了，要么没执行完
-                    // 当该进程在自己的时间片内执行完成，就抢该进程从就绪队列删除，收回本次时间片，创建一个新的时间片给新的队首进程
+                    // 当该进程在自己的时间片内执行完成，就将该进程从就绪队列删除，收回本次时间片，创建一个新的时间片给新的队首进程
                     if (runProcess.getPcb().getServiceTime() <= 0) {
                         // 进程执行完就将该进程从就绪队列中删除
                         runProcess.getPcb().setStatus(STATUS_FINISH);
