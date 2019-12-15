@@ -4,6 +4,13 @@ import java.io.*;
 import java.util.List;
 
 public class DeepCopyBySerialization {
+    /**
+     * 深拷贝
+     * @param temp
+     * @return
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     public static int[] deepCopy(int[] temp) throws IOException, ClassNotFoundException {
         ByteArrayOutputStream byteOut = new ByteArrayOutputStream();
         ObjectOutputStream out = new ObjectOutputStream(byteOut);

@@ -79,7 +79,7 @@ public class Main {
 
         max[4][0] = 4;
         max[4][1] = 3;
-        max[4][2] = 4;
+        max[4][2] = 3;
 
         allocation[0][0] = 0;
         allocation[0][1] = 1;
@@ -107,7 +107,7 @@ public class Main {
 
         need[1][0] = 1;
         need[1][1] = 2;
-        need[1][2] = 3;
+        need[1][2] = 2;
 
         need[2][0] = 6;
         need[2][1] = 0;
