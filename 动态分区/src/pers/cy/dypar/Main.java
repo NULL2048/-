@@ -1,6 +1,9 @@
 package pers.cy.dypar;
 
 import pers.cy.dypar.entity.Partition;
+import pers.cy.dypar.factory.Factory;
+import pers.cy.dypar.service.AllocatedMemoryService;
+import pers.cy.dypar.service.IOService;
 import pers.cy.dypar.util.Constant;
 
 import java.util.ArrayList;
@@ -8,6 +11,9 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Main implements Constant {
+    private static IOService ioService = Factory.getIOServiceInstance();
+    private static AllocatedMemoryService allocatedMemoryService = Factory.getAllocatedMemoryServiceInstance();
+
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
         // 创建初始分区分配表
@@ -25,10 +31,12 @@ public class Main implements Constant {
 
             switch (select) {
                 case 1:
+                    allocatedMemoryService.allocatedMemory(partitionList);
                     break;
                 case 2:
                     break;
                 case 3:
+                    ioService.outputMemoryUsage(partitionList);
                     break;
                 case 4:
                     System.exit(0);

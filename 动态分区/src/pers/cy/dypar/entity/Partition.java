@@ -19,6 +19,7 @@ public class Partition implements Constant, Comparable<Partition> {
         this.size = size;
         this.addr = addr;
         this.status = status;
+        this.jobName = "";
     }
 
     public Partition(int num, String jobName, int addr, int size, int status) {
@@ -72,9 +73,9 @@ public class Partition implements Constant, Comparable<Partition> {
     @Override
     public String toString() {
         if (status == STATUS_WAIT) {
-            return num + "\t" + jobName + "\t" + addr + "\t" + size + "\t" + "空闲";
+            return "\t" + num + "\t\t" + jobName + "\t\t" + addr + "\t\t" + size + "\t\t\t" + "空闲";
         } else {
-            return num + "\t" + jobName + "\t" + addr + "\t" + size + "\t" + "已分配";
+            return "\t" + num + "\t\t" + jobName + "\t\t" + addr + "\t\t" + size + "\t\t\t" + "已分配";
         }
     }
 
