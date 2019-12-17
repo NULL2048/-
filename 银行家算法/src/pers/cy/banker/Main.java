@@ -27,10 +27,10 @@ public class Main {
         init(available, max, allocation, need);
 
         while (true) {
-            System.out.println("\n1,初始化\n");
-            System.out.println("2,查看当前资源分配表\n");
-            System.out.println("3,请求资源\n");
-            System.out.println("4,退出\n");
+            System.out.println("\n1. 初始化\n");
+            System.out.println("2. 查看当前资源分配表\n");
+            System.out.println("3. 请求资源\n");
+            System.out.println("4. 退出\n");
 
             System.out.print("\n请输入选择：");
             int select = scan.nextInt();

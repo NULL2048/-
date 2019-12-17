@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/动态分区/动态分区.iml" filepath="$PROJECT_DIR$/动态分区/动态分区.iml" />
       <module fileurl="file://$PROJECT_DIR$/进程调度算法/进程调度算法.iml" filepath="$PROJECT_DIR$/进程调度算法/进程调度算法.iml" />
       <module fileurl="file://$PROJECT_DIR$/银行家算法/银行家算法.iml" filepath="$PROJECT_DIR$/银行家算法/银行家算法.iml" />
     </modules>
