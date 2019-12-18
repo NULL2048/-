@@ -4,6 +4,7 @@ import pers.cy.dypar.entity.Partition;
 import pers.cy.dypar.factory.Factory;
 import pers.cy.dypar.service.AllocatedMemoryService;
 import pers.cy.dypar.service.IOService;
+import pers.cy.dypar.service.RecoveryMemoryService;
 import pers.cy.dypar.util.Constant;
 
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ import java.util.Scanner;
 public class Main implements Constant {
     private static IOService ioService = Factory.getIOServiceInstance();
     private static AllocatedMemoryService allocatedMemoryService = Factory.getAllocatedMemoryServiceInstance();
+    private static RecoveryMemoryService recoveryMemoryService = Factory.getRecoveryMemoryServiceInstance();
 
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
@@ -34,6 +36,7 @@ public class Main implements Constant {
                     allocatedMemoryService.allocatedMemory(partitionList);
                     break;
                 case 2:
+                    recoveryMemoryService.recoveryMemory(partitionList);
                     break;
                 case 3:
                     ioService.outputMemoryUsage(partitionList);

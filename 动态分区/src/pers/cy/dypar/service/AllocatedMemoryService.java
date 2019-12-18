@@ -27,8 +27,6 @@ public class AllocatedMemoryService implements Constant {
         // 获得按空间从小到大排序的空闲分区链
         List<Partition> freePartitionList = BF(partitionList);
 
-        // 记录循环次数
-        int cnt = 0;
         // 遍历空闲分区链，进行内存分配
         for (Partition partition : freePartitionList) {
             // 比较请求空间和当前分区空前大小，如果当前分区空间足够分配给请求的进程，就准备进行分配，如果不够就遍历下一个分区
@@ -45,7 +43,6 @@ public class AllocatedMemoryService implements Constant {
                 System.out.println("分配成功！！！");
                 return;
             }
-            cnt++;
         }
 
         System.out.println("分配失败！！！");
