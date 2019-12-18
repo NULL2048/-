@@ -23,9 +23,9 @@ public class Main implements Constant {
         partitionList.add(new Partition(0, 0, 1024, STATUS_WAIT));
 
         while (true) {
-            System.out.println("\n1. 分配内存\n");
-            System.out.println("2. 回收内存\n");
-            System.out.println("3. 显示内存使用情况\n");
+            System.out.println("\n1. 分配内存");
+            System.out.println("2. 回收内存");
+            System.out.println("3. 显示内存使用情况");
             System.out.println("4. 退出\n");
 
             System.out.print("\n请输入选择：");
