@@ -124,7 +124,7 @@ public class AllocatedMemoryService implements Constant {
         // 增加分割出来的新分区，地址就在上面分区的基础上向下顺延size大小，就将其插入到partition这个分区的下一个就行
         partitionList.add(index + 1, new Partition(partition.getNum() + 1, partition.getAddr() + size, nextSize, STATUS_WAIT));
 
-        // 将后面的所有分区的分区号都嘉义
+        // 将后面的所有分区的分区号都加一
         for (int i = index + 2; i < partitionList.size(); i++) {
             Partition temp = partitionList.get(i);
             temp.setNum(temp.getNum() + 1);

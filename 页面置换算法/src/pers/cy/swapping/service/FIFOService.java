@@ -97,7 +97,7 @@ public class FIFOService {
     }
 
     /**
-     * 将除了index下标的物理块中的页面的存在时间加一
+     * 将物理块中的页面的存在时间加一
      * @param physicalBlocks
      */
     public void timeIncrease(PhysicalBlock[] physicalBlocks) {

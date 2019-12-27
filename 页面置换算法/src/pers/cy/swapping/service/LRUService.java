@@ -15,7 +15,7 @@ public class LRUService {
     public void LRU(PhysicalBlock[] physicalBlocks) {
         Scanner scan = new Scanner(System.in);
 
-        // 替换指针  指向最老的页面，即下一次调入页面应该放入的物理块号
+        // 替换指针  指向最近最久未使用的页面，即下一次调入页面应该放入的物理块号
         int index = 0;
 
         while (true) {
